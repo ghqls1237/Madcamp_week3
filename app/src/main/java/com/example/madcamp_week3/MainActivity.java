@@ -33,7 +33,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         ViewPager vp = findViewById(R.id.viewpager);
         VPAdapter adapter = null;
         try {
@@ -48,7 +47,6 @@ public class MainActivity extends AppCompatActivity {
         tab.setupWithViewPager(vp);
 
         startLocationService();
-
     }
 
     private void startLocationService(){

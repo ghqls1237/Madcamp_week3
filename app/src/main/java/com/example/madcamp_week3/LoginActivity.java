@@ -17,73 +17,80 @@ import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
+import com.facebook.login.Login;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
-//import com.google.android.gms.tasks.OnCompleteListener;
-//import com.google.android.gms.tasks.Task;
-//import com.google.firebase.auth.AuthCredential;
-//import com.google.firebase.auth.AuthResult;
-//import com.google.firebase.auth.FacebookAuthProvider;
-//import com.google.firebase.auth.FirebaseAuth;
-//import com.google.gson.JsonArray;
+//import com.google.android.gms.common.api.Response;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FacebookAuthProvider;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.gson.JsonArray;
 
 import java.util.Arrays;
 
-//import retrofit2.Call;
-//import retrofit2.Callback;
-//import retrofit2.Response;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
-//    FirebaseAuth auth ;
+    FirebaseAuth auth ;
     CallbackManager callbackManager;
     String[] info_list = {"email", "public_profile"};
 
     //retrofit
-//    RetrofitClient retrofitClient = new RetrofitClient();
+    RetrofitClient retrofitClient = new RetrofitClient();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        System.out.println("login activity");
+        Log.d("","login activity");
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(getApplicationContext());
         AppEventsLogger.activateApp(this);
 
         setContentView(R.layout.activity_login);
-////        FirebaseApp.initializeApp(this);
-//        auth = FirebaseAuth.getInstance();
+        FirebaseApp.initializeApp(this);
+        auth = FirebaseAuth.getInstance();
         callbackManager = CallbackManager.Factory.create();
-//        if(auth.getCurrentUser() != null){
+        if(auth.getCurrentUser() != null){
             //Login state
-//            Intent intent = new Intent(this, MainActivity.class);
-//            startActivity(intent);
-//            finish();
-//
-//            String email = auth.getCurrentUser().getEmail();
-//            String displayName = auth.getCurrentUser().getDisplayName();
-//            String uid = auth.getCurrentUser().getUid();
-//            String method =  auth.getCurrentUser().getProviderData().get(1).getProviderId().toString().toLowerCase();
-//            User user = new User(uid, email, method, displayName);
-//            //Retrofit use
-//            Call<String> call = retrofitClient.apiService.login(user);
-//            call.enqueue(new Callback<String>() {
-//                @Override
-//                public void onResponse(Call<String> call, Response<String> response) {
-//                    System.out.println("login 통신 성공함");
-//                }
-//
-//                @Override
-//                public void onFailure(Call<String> call, Throwable t) {
-//                    System.out.println("login 통신 실패");
-//                }
-//
-//            });
-//        }
-//        else{
-//            //should login
-//            System.out.println("you should login first!!");
-//        }
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+            finish();
+
+            String email = auth.getCurrentUser().getEmail();
+            String displayName = auth.getCurrentUser().getDisplayName();
+            String uid = auth.getCurrentUser().getUid();
+            String method =  auth.getCurrentUser().getProviderData().get(1).getProviderId().toString().toLowerCase();
+            System.out.println(email);
+            System.out.println(displayName);
+            System.out.println(uid);
+            System.out.println(method);
+            User user = new User(uid, email, method, displayName);
+            //Retrofit use
+            Call<String> call = retrofitClient.apiService.login(user);
+            call.enqueue(new Callback<String>() {
+                @Override
+                public void onResponse(Call<String> call, Response<String> response) {
+                    System.out.println("login 통신 성공함");
+                }
+
+                @Override
+                public void onFailure(Call<String> call, Throwable t) {
+                    System.out.println("login 통신 실패");
+                }
+
+            });
+        }
+        else{
+            //should login
+            Log.d("","you should login first!!");
+        }
         Button facebookBtn = findViewById(R.id.login_button);
         facebookBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,22 +107,22 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onSuccess(LoginResult loginResult) {
-                Log.d("Success", "Facebook Login Success");
-//                handleFacebookAccessToken(loginResult.getAccessToken());
+                Log.d("","Facebook Login Success");
+                handleFacebookAccessToken(loginResult.getAccessToken());
             }
 
             @Override
             public void onCancel() {
-                Log.d("Cancel", "Facebook Login Cancel");
+                Log.d("","Facebook Login Cancel");
             }
 
             @Override
             public void onError(FacebookException error) {
-                Log.d("Error", "Facebook Login Error");
+                Log.d("","Facebook Login Error");
             }
         });
     }
-/*
+
     private void handleFacebookAccessToken(AccessToken token){
         Log.d("Token", "handleFacebookAccessToken : " + token.toString());
         AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
@@ -139,7 +146,6 @@ public class LoginActivity extends AppCompatActivity {
                         public void onResponse(Call<String> call, Response<String> response) {
                             System.out.println("login 통신 성공함");
                         }
-
                         @Override
                         public void onFailure(Call<String> call, Throwable t) {
                             System.out.println("login 통신 실패");
@@ -159,7 +165,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
-    */
+
 
 
     @Override
@@ -169,11 +175,11 @@ public class LoginActivity extends AppCompatActivity {
         callbackManager.onActivityResult(requestCode, resultCode, data);
         //
     }
-/*
+
     private void logout(){
         auth.signOut();
     }
-*/
+
 
 
 

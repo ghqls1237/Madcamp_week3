@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "57609569487",
+    "project_id": "treasure-hunt-d0c8c",
+    "storage_bucket": "treasure-hunt-d0c8c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:57609569487:android:43a2124fca4f7aa1f5a3ba",
+        "android_client_info": {
+          "package_name": "com.example.madcamp_week3"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "57609569487-14va03u1ird3l96h20jj1a9bq62vmstp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC_gdGhYovO55bSxhL66cj-3lGQOJxCaHc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "57609569487-14va03u1ird3l96h20jj1a9bq62vmstp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

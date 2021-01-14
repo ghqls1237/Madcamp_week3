@@ -15,10 +15,12 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Madcamp_week3">
+        android:theme="@style/Theme.Madcamp_week3"
         android:usesCleartextTraffic="true">
         <activity android:name="com.example.madcamp_week3.LoginActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" />
+        <activity android:name=".Unity_test" />
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

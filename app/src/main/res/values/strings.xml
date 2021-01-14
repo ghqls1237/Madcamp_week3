@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Madcamp_week3</string>
+    <string name="facebook_app_id">437649430938778</string> <string name="fb_login_protocol_scheme">fb437649430938778</string>
 </resources>

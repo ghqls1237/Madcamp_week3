@@ -1,14 +1,10 @@
-package com.example.madcamp_week3;
+package com.treasurehunt.madcamp_week3;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 
-import androidx.annotation.Nullable;
-import androidx.collection.ArraySet;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
 import org.json.JSONException;

@@ -1,7 +1,4 @@
-package com.example.madcamp_week3;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+package com.treasurehunt.madcamp_week3;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;

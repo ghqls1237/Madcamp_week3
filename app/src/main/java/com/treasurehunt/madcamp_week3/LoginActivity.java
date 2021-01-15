@@ -1,23 +1,20 @@
-package com.example.madcamp_week3;
+package com.treasurehunt.madcamp_week3;
 
 
 import android.content.Intent;
 //import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.madcamp_week3.MainActivity;
-import com.example.madcamp_week3.R;
+import com.treasurehunt.madcamp_week3.R;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
-import com.facebook.login.Login;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.FacebookSdk;
@@ -30,7 +27,6 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.gson.JsonArray;
 
 import java.util.Arrays;
 

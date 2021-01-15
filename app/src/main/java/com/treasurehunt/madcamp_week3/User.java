@@ -1,4 +1,4 @@
-package com.example.madcamp_week3;
+package com.treasurehunt.madcamp_week3;
 
 public class User {
     final String uid;

@@ -7,7 +7,7 @@ android {
     buildToolsVersion "30.0.3"
 
     defaultConfig {
-        applicationId "com.example.madcamp_week3"
+        applicationId "com.treasurehunt.madcamp_week3"
         minSdkVersion 16
         targetSdkVersion 30
         versionCode 1
@@ -44,6 +44,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth:16.0.5'
     implementation platform('com.google.firebase:firebase-bom:26.2.0')
     implementation 'com.google.firebase:firebase-analytics'
+    implementation 'com.google.firebase:firebase-messaging:21.0.1'
+    implementation "com.google.firebase:firebase-core:18.0.1"
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'  //retrofit library
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'    //convert json data into object
 }

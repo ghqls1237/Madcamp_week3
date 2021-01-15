@@ -1,4 +1,4 @@
-package com.example.madcamp_week3;
+package com.treasurehunt.madcamp_week3;
 
 import android.content.Context;
 
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
     public void useAppContext() {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        assertEquals("com.example.madcamp_week3", appContext.getPackageName());
+        assertEquals("com.treasurehunt.madcamp_week3", appContext.getPackageName());
     }
 }

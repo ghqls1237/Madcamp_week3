@@ -6,6 +6,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.viewpager.widget.ViewPager;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -18,20 +19,34 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.facebook.login.Login;
 import com.google.android.material.tabs.TabLayout;
 
 import org.json.JSONException;
 import org.w3c.dom.Text;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FacebookAuthProvider;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
 
     public double latitude = 0.0;
     public double longitude = 0.0;
     LocationManager manager;
+    public Button logout_btn;
+    FirebaseAuth auth;
+    Context context;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        System.out.println("main activity");
         super.onCreate(savedInstanceState);
+
+        context = this;
         setContentView(R.layout.activity_main);
+        auth = FirebaseAuth.getInstance();
 
         ViewPager vp = findViewById(R.id.viewpager);
         VPAdapter adapter = null;
@@ -45,6 +60,19 @@ public class MainActivity extends AppCompatActivity {
         //tab과 viewpager 연동시키는 과정
         TabLayout tab=findViewById(R.id.tab);
         tab.setupWithViewPager(vp);
+
+        logout_btn = findViewById(R.id.logout_btn);
+        logout_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                logout();
+//                moveTaskToBack(false);
+//                finish();
+                Intent intent = new Intent(context, LoginActivity.class);
+                startActivity(intent);
+                ((Activity)context).finish();
+            }
+        });
 
         startLocationService();
     }
@@ -95,4 +123,10 @@ public class MainActivity extends AppCompatActivity {
         }
         
     };
+
+    private void logout(){
+        auth.signOut();
+        System.out.println("logout");
+        System.out.println("current user: "+auth.getCurrentUser());
+    }
 }

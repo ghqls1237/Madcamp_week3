@@ -2,7 +2,7 @@ package com.example.madcamp_week3;
 
 
 import android.content.Intent;
-import android.net.Uri;
+//import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -48,7 +48,7 @@ public class LoginActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.d("","login activity");
+        System.out.println("login activity");
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(getApplicationContext());
         AppEventsLogger.activateApp(this);
@@ -58,20 +58,21 @@ public class LoginActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         callbackManager = CallbackManager.Factory.create();
         if(auth.getCurrentUser() != null){
+            System.out.println("current user exists");
             //Login state
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
             finish();
 
             String email = auth.getCurrentUser().getEmail();
-            String displayName = auth.getCurrentUser().getDisplayName();
+            String nickname = auth.getCurrentUser().getDisplayName();
             String uid = auth.getCurrentUser().getUid();
             String method =  auth.getCurrentUser().getProviderData().get(1).getProviderId().toString().toLowerCase();
             System.out.println(email);
-            System.out.println(displayName);
+            System.out.println(nickname);
             System.out.println(uid);
             System.out.println(method);
-            User user = new User(uid, email, method, displayName);
+            User user = new User(uid, email, method, nickname);
             //Retrofit use
             Call<String> call = retrofitClient.apiService.login(user);
             call.enqueue(new Callback<String>() {
@@ -89,7 +90,7 @@ public class LoginActivity extends AppCompatActivity {
         }
         else{
             //should login
-            Log.d("","you should login first!!");
+            System.out.println("you should login first!!");
         }
         Button facebookBtn = findViewById(R.id.login_button);
         facebookBtn.setOnClickListener(new View.OnClickListener() {
@@ -107,38 +108,38 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onSuccess(LoginResult loginResult) {
-                Log.d("","Facebook Login Success");
+                System.out.println("Facebook Login Success");
                 handleFacebookAccessToken(loginResult.getAccessToken());
             }
 
             @Override
             public void onCancel() {
-                Log.d("","Facebook Login Cancel");
+                System.out.println("Facebook Login Cancel");
             }
 
             @Override
             public void onError(FacebookException error) {
-                Log.d("","Facebook Login Error");
+                System.out.println("Facebook Login Error");
             }
         });
     }
 
     private void handleFacebookAccessToken(AccessToken token){
-        Log.d("Token", "handleFacebookAccessToken : " + token.toString());
+        System.out.println("handleFacebookAccessToken : " + token.toString());
         AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
-        Log.d("Credential", "Credential is " + credential);
+        System.out.println("Credential is " + credential);
         auth.signInWithCredential(credential).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
                     //Login success
-                    Log.d("Success", "signInWithCredential:Success");
+                    System.out.println("signInWithCredential:Success");
                     String email = auth.getCurrentUser().getEmail();
-                    String displayName = auth.getCurrentUser().getDisplayName();
+                    String nickname = auth.getCurrentUser().getDisplayName();
                     String uid = auth.getCurrentUser().getUid();
                     String method =  auth.getCurrentUser().getProviderData().get(1).getProviderId().toString().toLowerCase();
-                    User user = new User(uid, email, method, displayName);
-
+                    User user = new User(uid, email, method, nickname);
+//                    System.out.println("user: "+ user.uid + user.email+ user.nickname+ user.method);
                     //Retrofit use
                     Call<String> call = retrofitClient.apiService.login(user);
                     call.enqueue(new Callback<String>() {
@@ -159,7 +160,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 else{
                     //Login Fail
-                    Log.d("Failure", "signInWithCredential:Failure : " + task);
+                    System.out.println("signInWithCredential:Failure : " + task);
                     Toast.makeText(LoginActivity.this, "Login fail", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -176,9 +177,9 @@ public class LoginActivity extends AppCompatActivity {
         //
     }
 
-    private void logout(){
-        auth.signOut();
-    }
+//    private void logout(){
+//        auth.signOut();
+//    }
 
 
 

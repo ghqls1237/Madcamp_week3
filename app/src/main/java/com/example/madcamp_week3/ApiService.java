@@ -26,8 +26,8 @@ public interface ApiService {
     @POST("/users/login/")
     Call<String> login(@Body User user);
     //
-    @GET("/users/login")
-    Call<String> login_get();
+//    @GET("/users/login")
+//    Call<String> login_get();
 //    @GET("/contacts/")
 //    Call<JsonArray> getretrofitdata(@Query("uid") String uid);
 //

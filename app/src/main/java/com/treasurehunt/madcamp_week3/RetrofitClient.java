@@ -6,7 +6,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 //969e55fb388c.ngrok.io
 public class RetrofitClient {
     Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl("https://730fa3889647.ngrok.io")
+            .baseUrl("http://fd353355ee73.ngrok.io")
             .addConverterFactory(GsonConverterFactory.create())
             .build();
 

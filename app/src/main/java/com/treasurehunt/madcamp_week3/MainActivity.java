@@ -7,13 +7,17 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.IBinder;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -33,6 +37,28 @@ public class MainActivity extends AppCompatActivity {
     FirebaseAuth auth;
     Context context;
 
+    private GpsTrackingService gpsTrackingService;
+    private boolean isBind;
+
+    ServiceConnection sconn = new ServiceConnection() {
+        @Override //서비스가 실행될 때 호출
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            GpsTrackingService.MyBinder myBinder = (GpsTrackingService.MyBinder) service;
+            gpsTrackingService = myBinder.getService();
+
+            isBind = true;
+            Log.e("LOG", "onServiceConnected()");
+        }
+
+        @Override //서비스가 종료될 때 호출
+        public void onServiceDisconnected(ComponentName name) {
+            gpsTrackingService = null;
+            isBind = false;
+            Log.e("LOG", "onServiceDisconnected()");
+        }
+    };
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         System.out.println("main activity");
@@ -42,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         auth = FirebaseAuth.getInstance();
 
+        //Viewpager implementation
         ViewPager vp = findViewById(R.id.viewpager);
         VPAdapter adapter = null;
         try {
@@ -55,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
         TabLayout tab=findViewById(R.id.tab);
         tab.setupWithViewPager(vp);
 
+        //logout button implementation
         logout_btn = findViewById(R.id.logout_btn);
         logout_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,13 +96,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        startLocationService();
+//        startLocationService();
+        startService(new Intent(MainActivity.this, GpsTrackingService.class));
     }
+
 
     private void startLocationService(){
         manager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
 
-        long minTime = 10; // 갱신에 필요한 최소 시간 은 1초
+        long minTime = 1000; // 갱신에 필요한 최소 시간 은 1초
         float minDistance = 0; // 위치 갱신이 필요한 최소 거리 m
 
 
@@ -88,7 +118,6 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "Don't have permission", Toast.LENGTH_LONG).show();
             return;
         }
-
 
         manager.requestLocationUpdates(LocationManager.GPS_PROVIDER,minTime,minDistance,mLocationListener);
         manager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,minTime,minDistance, mLocationListener);

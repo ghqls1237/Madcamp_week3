@@ -23,6 +23,12 @@ import androidx.core.app.ActivityCompat;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.google.firebase.iid.FirebaseInstanceId;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class GpsTrackingService extends Service {
     LocationManager manager;
     public double latitude = 0.0;
@@ -30,6 +36,8 @@ public class GpsTrackingService extends Service {
     private IBinder mIBinder = new MyBinder();
     private Looper serviceLooper;
     private ServiceHandler serviceHandler;
+    String device_token;
+    RetrofitClient retrofitClient = new RetrofitClient();
 
 
     // Handler that receives messages from the thread
@@ -78,7 +86,18 @@ public class GpsTrackingService extends Service {
         // Get the HandlerThread's Looper and use it for our Handler
         serviceLooper = thread.getLooper();
         serviceHandler = new ServiceHandler(serviceLooper);
-        
+
+        //Read the token of the phone.
+        FirebaseInstanceId.getInstance().getInstanceId().addOnCompleteListener(task -> {
+            if (!task.isSuccessful()) {
+                Log.w("FirebaseSettingEx", "getInstanceId failed", task.getException());
+                return;
+            }
+            device_token = task.getResult().getToken();
+            System.out.println("token: " + device_token);
+            System.out.println("token length: " + device_token.length());
+        });
+
 //        super.onCreate();
     }
 
@@ -104,11 +123,11 @@ public class GpsTrackingService extends Service {
     }
 
     private void startLocationService(){
+        System.out.println("start location service");
         manager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
 
         long minTime = 100; // 갱신에 필요한 최소 시간 은 1초
         float minDistance = 0; // 위치 갱신이 필요한 최소 거리 m
-
 
         boolean isGPSEnabled = manager.isProviderEnabled(LocationManager.GPS_PROVIDER);
         boolean isNetworkEnabled = manager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
@@ -142,6 +161,27 @@ public class GpsTrackingService extends Service {
 
             System.out.println("latitude :" + latitude);
             System.out.println("longitude :" + longitude);
+
+            DeviceLocation deviceLocation = new DeviceLocation(device_token, Double.toString(latitude), Double.toString(longitude));
+            Call<String> call = retrofitClient.apiService.hunt(deviceLocation);
+            call.enqueue(new Callback<String>() {
+                @Override
+                public void onResponse(Call<String> call, Response<String> response) {
+                    if (response.isSuccessful()) {
+                        System.out.println("hunt response successful");
+                    }
+                    else{
+                        System.out.println("hunt response not successful");
+                    }
+                }
+                @Override
+                public void onFailure(Call<String> call, Throwable t) {
+                    System.out.println("hunt response on failure");
+                }
+
+            });
+//
+
 
             //stopLocationService();
         }

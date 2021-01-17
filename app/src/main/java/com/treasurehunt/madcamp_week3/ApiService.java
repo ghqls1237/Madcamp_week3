@@ -1,12 +1,25 @@
 package com.treasurehunt.madcamp_week3;
 
+import android.location.Location;
+
+import org.json.JSONArray;
+
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.Headers;
 import retrofit2.http.POST;
 
 public interface ApiService {
     @POST("/users/login/")
     Call<String> login(@Body User user);
+
+    @POST("/treasure/hunt/")
+    Call<String> hunt(@Body DeviceLocation deviceLocation);
+//    Call<NotiKey> getNotiKey(@Body NotiRequest notiRequest);
     //
 //    @GET("/users/login")
 //    Call<String> login_get();

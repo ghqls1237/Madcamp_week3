@@ -13,4 +13,5 @@ public class User {
         this.nickname = nickname;
         this.token = token;
     }
+
 }

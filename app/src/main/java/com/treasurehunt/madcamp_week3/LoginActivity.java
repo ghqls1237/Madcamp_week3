@@ -4,6 +4,7 @@ package com.treasurehunt.madcamp_week3;
 import android.content.Intent;
 //import android.net.Uri;
 import android.os.Bundle;
+import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -11,7 +12,11 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.FirebaseOptions;
 import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.firebase.messaging.RemoteMessage;
+import com.google.gson.JsonArray;
 import com.treasurehunt.madcamp_week3.R;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
@@ -30,11 +35,19 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 
+import org.json.JSONArray;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
 
 public class LoginActivity extends AppCompatActivity {
     FirebaseAuth auth ;
@@ -44,6 +57,7 @@ public class LoginActivity extends AppCompatActivity {
 
     //retrofit
     RetrofitClient retrofitClient = new RetrofitClient();
+    RetrofitNotiClient retrofitNotiClient = new RetrofitNotiClient();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,37 +83,43 @@ public class LoginActivity extends AppCompatActivity {
         });
 
 
+//        String operation = "create";
+//        String nkn = auth.getCurrentUser().getDisplayName();
+//        List<String> ri = new ArrayList<>();
+//        ri.add(device_token);
+////        String[] ri = {device_token};
+//
+//        NotiRequest notiRequest = new NotiRequest(operation, nkn, ri);
+////        Call<NotiKey> call = retrofitNotiClient.apiService.getNotiKey(notiRequest);
+//        Call<NotiKey> call = retrofitNotiClient.apiService.getNotiKey(operation, nkn, ri);
+//        System.out.println("before enqueing getNotiKey request");
+//        call.enqueue(new Callback<NotiKey>() {
+//            @Override
+//            public void onResponse(Call<NotiKey> call, Response<NotiKey> response) {
+//                if (response.isSuccessful()) {
+//                    System.out.println("getnotikey response is successful");
+//                    String notiKey = response.body().getNotification_key();
+//                    System.out.println("notikey: " + notiKey);
+//                }
+//                else{
+//                    System.out.println("getnotikey response is not successful");
+//                }
+//            }
+//            @Override
+//            public void onFailure(Call<NotiKey> call, Throwable t) {
+//                System.out.println("getnotikey failure");
+//            }
+//        });
+
+
         if(auth.getCurrentUser() != null){
             System.out.println("current user exists");
             //Login state
+            System.out.println(auth.getCurrentUser().getUid());
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
             finish();
 
-//            String email = auth.getCurrentUser().getEmail();
-//            String nickname = auth.getCurrentUser().getDisplayName();
-//            String uid = auth.getCurrentUser().getUid();
-//            String method =  auth.getCurrentUser().getProviderData().get(1).getProviderId().toString().toLowerCase();
-//            System.out.println("123456"+email);
-//            System.out.println(nickname);
-//            System.out.println(uid);
-//            System.out.println(method);
-//            System.out.println(device_token);
-//            User user = new User(uid, email, method, nickname, device_token);
-//            //Retrofit use
-//            Call<String> call = retrofitClient.apiService.login(user);
-//            call.enqueue(new Callback<String>() {
-//                @Override
-//                public void onResponse(Call<String> call, Response<String> response) {
-//                    System.out.println("login 통신 성공함");
-//                }
-//
-//                @Override
-//                public void onFailure(Call<String> call, Throwable t) {
-//                    System.out.println("login 통신 실패");
-//                }
-//
-//            });
         }
         else{
             //should login

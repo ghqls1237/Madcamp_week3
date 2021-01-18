@@ -1,2 +1,4 @@
 include ':app'
 rootProject.name = "Madcamp_week3"
+include ':unityLibrary'
+project(':unityLibrary').projectDir=new File('..\\Imagetracker\\androidBuild\\unityLibrary')

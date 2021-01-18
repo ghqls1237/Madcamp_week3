@@ -8,7 +8,7 @@ android {
 
     defaultConfig {
         applicationId "com.treasurehunt.madcamp_week3"
-        minSdkVersion 16
+        minSdkVersion 24
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
@@ -51,5 +51,6 @@ dependencies {
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'  //retrofit library
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'    //convert json data into object
     implementation 'com.android.support:multidex:1.0.3'
+    implementation project(':unityLibrary')
 
 }

@@ -7,4 +7,13 @@
 
     <!-- TODO: Update blank fragment layout -->
 
+    <Button
+        android:layout_width="350dp"
+        android:layout_height="200dp"
+        android:layout_gravity="center"
+        android:text="보물찾기"
+        android:autoSizeTextType="uniform"
+        android:id="@+id/gamestart"
+        />
+
 </FrameLayout>

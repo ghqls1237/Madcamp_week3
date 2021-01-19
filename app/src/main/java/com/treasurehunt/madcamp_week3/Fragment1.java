@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -64,6 +65,13 @@ public class Fragment1 extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_1, container, false);
 
+        ImageButton button = view.findViewById(R.id.map);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                button.setImageResource(R.drawable.map);
+            }
+        });
         return view;
     }
 

@@ -6,9 +6,33 @@
     tools:context=".Fragment1">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center" />
+        android:orientation="vertical"
+        >
+        <TextView
+            android:layout_margin="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="보물 지도를 보시겠습니까?"
+            android:textSize="25dp"
+            android:gravity="center"
+            android:textStyle="bold"
+            />
+        <ImageButton
+            android:layout_margin="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/thief"
+            android:scaleType="centerInside"
+            android:background="@android:color/transparent"
+            android:id="@+id/map"
+            />
+    </LinearLayout>
+
+
 
 </FrameLayout>

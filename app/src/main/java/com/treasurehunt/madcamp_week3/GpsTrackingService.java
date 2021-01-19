@@ -23,6 +23,7 @@ import androidx.core.app.ActivityCompat;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.iid.FirebaseInstanceId;
 
 import retrofit2.Call;
@@ -47,7 +48,7 @@ public class GpsTrackingService extends Service {
         }
         @Override
         public void handleMessage(Message msg) {
-            System.out.println("gts handleMessage()");
+//            System.out.println("gts handleMessage()");
             // Normally we would do some work here, like download a file.
             // For our sample, we just sleep for 5 seconds.
             startLocationService();
@@ -67,13 +68,13 @@ public class GpsTrackingService extends Service {
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
-        System.out.println("gts onBind()");
+//        System.out.println("gts onBind()");
         return mIBinder;
     }
 
     @Override
     public void onCreate() {
-        System.out.println("gts onCreate()");
+//        System.out.println("gts onCreate()");
         
         // Start up the thread running the service. Note that we create a
         // separate thread because the service normally runs in the process's
@@ -94,8 +95,8 @@ public class GpsTrackingService extends Service {
                 return;
             }
             device_token = task.getResult().getToken();
-            System.out.println("token: " + device_token);
-            System.out.println("token length: " + device_token.length());
+//            System.out.println("token: " + device_token);
+//            System.out.println("token length: " + device_token.length());
         });
 
 //        super.onCreate();
@@ -103,7 +104,7 @@ public class GpsTrackingService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        System.out.println("gts onStartCommand()");
+//        System.out.println("gts onStartCommand()");
         Message msg = serviceHandler.obtainMessage();
         msg.arg1 = startId;
         serviceHandler.sendMessage(msg);
@@ -112,18 +113,18 @@ public class GpsTrackingService extends Service {
 
     @Override
     public void onDestroy() {
-        System.out.println("gts onDestroy()");
+//        System.out.println("gts onDestroy()");
         super.onDestroy();
     }
 
     @Override
     public boolean onUnbind(Intent intent) {
-        System.out.println("gts onUnbind()");
+//        System.out.println("gts onUnbind()");
         return super.onUnbind(intent);
     }
 
     private void startLocationService(){
-        System.out.println("start location service");
+//        System.out.println("start location service");
         manager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
 
         long minTime = 100; // 갱신에 필요한 최소 시간 은 1초
@@ -132,8 +133,8 @@ public class GpsTrackingService extends Service {
         boolean isGPSEnabled = manager.isProviderEnabled(LocationManager.GPS_PROVIDER);
         boolean isNetworkEnabled = manager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
 
-        System.out.println("isGPSenabled : "+ isGPSEnabled);
-        System.out.println("isNetwordenabled : "+ isNetworkEnabled);
+//        System.out.println("isGPSenabled : "+ isGPSEnabled);
+//        System.out.println("isNetwordenabled : "+ isNetworkEnabled);
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED){
             Toast.makeText(this, "Don't have permission", Toast.LENGTH_LONG).show();
@@ -159,24 +160,24 @@ public class GpsTrackingService extends Service {
             latitude = location.getLatitude();
             longitude = location.getLongitude();
 
-            System.out.println("latitude :" + latitude);
-            System.out.println("longitude :" + longitude);
+//            System.out.println("latitude :" + latitude);
+//            System.out.println("longitude :" + longitude);
 
-            DeviceLocation deviceLocation = new DeviceLocation(device_token, Double.toString(latitude), Double.toString(longitude));
+            DeviceLocation deviceLocation = new DeviceLocation(device_token, Double.toString(latitude), Double.toString(longitude), FirebaseAuth.getInstance().getCurrentUser().getUid());
             Call<String> call = retrofitClient.apiService.hunt(deviceLocation);
             call.enqueue(new Callback<String>() {
                 @Override
                 public void onResponse(Call<String> call, Response<String> response) {
                     if (response.isSuccessful()) {
-                        System.out.println("hunt response successful");
+//                        System.out.println("hunt response successful");
                     }
                     else{
-                        System.out.println("hunt response not successful");
+//                        System.out.println("hunt response not successful");
                     }
                 }
                 @Override
                 public void onFailure(Call<String> call, Throwable t) {
-                    System.out.println("hunt response on failure");
+//                    System.out.println("hunt response on failure");
                 }
 
             });

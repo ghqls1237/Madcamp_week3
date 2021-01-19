@@ -38,6 +38,7 @@ public class UnityPlayerActivity extends Activity implements IUnityPlayerLifecyc
         String cmdLine = updateUnityCommandLineArguments(getIntent().getStringExtra("unity"));
         getIntent().putExtra("unity", cmdLine);
 
+        System.out.println("abc-----------------------------");
         mUnityPlayer = new UnityPlayer(this, this);
         setContentView(mUnityPlayer);
         mUnityPlayer.requestFocus();

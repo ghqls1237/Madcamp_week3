@@ -9,6 +9,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
+
+import com.google.firebase.auth.FirebaseAuth;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -63,12 +66,14 @@ public class Fragment2 extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_2, container, false);
 
-        Button button = view.findViewById(R.id.gamestart);
+        ImageButton button = view.findViewById(R.id.gamestart);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), UnityPlayerActivity.class);
+                Intent intent = new Intent(getActivity(), com.unity3d.player.UnityPlayerActivity.class);
+                intent.putExtra("uid", FirebaseAuth.getInstance().getCurrentUser().getUid());
                 getActivity().startActivity(intent);
+//                getActivity().finish();
             }
         });
         return view;

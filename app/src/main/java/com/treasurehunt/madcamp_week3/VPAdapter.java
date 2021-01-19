@@ -18,11 +18,11 @@ public class VPAdapter extends FragmentPagerAdapter {
     public VPAdapter(FragmentManager fm) throws JSONException {
         super(fm);
         items = new ArrayList<Fragment>();
-        items.add(new Fragment1());
+//        items.add(new Fragment1());
         items.add(new Fragment2());
         items.add(new Fragment3());
 
-        itext.add("HIDE");
+//        itext.add("HIDE");
         itext.add("SEEK");
         itext.add("MY Items");
     }

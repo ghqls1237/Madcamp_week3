@@ -61,7 +61,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        System.out.println("main activity");
         super.onCreate(savedInstanceState);
 
         context = this;
@@ -111,8 +110,8 @@ public class MainActivity extends AppCompatActivity {
         boolean isGPSEnabled = manager.isProviderEnabled(LocationManager.GPS_PROVIDER);
         boolean isNetworkEnabled = manager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
 
-        System.out.println("isGPSenabled : "+ isGPSEnabled);
-        System.out.println("isNetwordenabled : "+ isNetworkEnabled);
+//        System.out.println("isGPSenabled : "+ isGPSEnabled);
+//        System.out.println("isNetwordenabled : "+ isNetworkEnabled);
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED){
             Toast.makeText(this, "Don't have permission", Toast.LENGTH_LONG).show();
@@ -138,8 +137,8 @@ public class MainActivity extends AppCompatActivity {
             latitude = location.getLatitude();
             longitude = location.getLongitude();
 
-            System.out.println("latitude :" + latitude);
-            System.out.println("longitude :" + longitude);
+//            System.out.println("latitude :" + latitude);
+//            System.out.println("longitude :" + longitude);
 
 
             //stopLocationService();
@@ -149,7 +148,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void logout(){
         auth.signOut();
-        System.out.println("logout");
-        System.out.println("current user: "+auth.getCurrentUser());
+//        System.out.println("logout");
+//        System.out.println("current user: "+auth.getCurrentUser());
     }
 }

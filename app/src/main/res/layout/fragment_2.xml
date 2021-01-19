@@ -7,13 +7,22 @@
 
     <!-- TODO: Update blank fragment layout -->
 
-    <Button
-        android:layout_width="350dp"
-        android:layout_height="200dp"
-        android:layout_gravity="center"
-        android:text="보물찾기"
-        android:autoSizeTextType="uniform"
-        android:id="@+id/gamestart"
+    <TextView
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:textSize="15dp"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:text = "보물을 찾고 싶은 당신, 보물함을 눌러보세요."
         />
+    <ImageButton
+        android:id="@+id/gamestart"
+        android:layout_width="262dp"
+        android:layout_height="233dp"
+        android:layout_gravity="center"
+        android:scaleType="centerCrop"
+        android:src="@drawable/treasure_chest"
+        android:background="@android:color/transparent"/>
 
 </FrameLayout>

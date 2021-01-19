@@ -2,6 +2,8 @@ package com.treasurehunt.madcamp_week3;
 
 import android.location.Location;
 
+import com.google.gson.JsonArray;
+
 import org.json.JSONArray;
 
 import java.util.List;
@@ -10,8 +12,10 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 public interface ApiService {
     @POST("/users/login/")
@@ -19,6 +23,10 @@ public interface ApiService {
 
     @POST("/treasure/hunt/")
     Call<String> hunt(@Body DeviceLocation deviceLocation);
+
+    @GET("/users/score/")
+    Call<JsonArray> score(@Query("uid") String uid);
+
 //    Call<NotiKey> getNotiKey(@Body NotiRequest notiRequest);
     //
 //    @GET("/users/login")

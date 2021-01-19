@@ -32,6 +32,9 @@ public interface ApiService {
     @GET("/treasure/my")
     Call<JsonArray> myTreasure(@Query("uid") String uid);
 
+    @GET("/users/ranking")
+    Call<JsonArray> ranking();
+
 //    Call<NotiKey> getNotiKey(@Body NotiRequest notiRequest);
     //
 //    @GET("/users/login")

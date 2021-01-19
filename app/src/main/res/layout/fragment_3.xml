@@ -14,57 +14,98 @@
         >
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="150dp">\
+            android:layout_height="100dp"
+            android:layout_gravity="center_horizontal">
 
             <ImageView
-                android:layout_margin="10dp"
-                android:layout_width="160dp"
+                android:id="@+id/userImage"
+                android:layout_marginVertical="15dp"
+                android:layout_marginHorizontal="15dp"
+                android:layout_width="120dp"
                 android:layout_height="match_parent"
                 android:scaleType="centerInside"
                 android:background="@android:color/transparent"
-                android:id="@+id/userImage"
+                android:src="@drawable/level1"
                 />
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:layout_weight="2">
+                android:orientation="horizontal"
+                android:layout_weight="2"
+                android:layout_marginVertical="10dp"
+                android:paddingHorizontal="10dp"
+                android:layout_marginRight="10dp">
                 <TextView
-                    android:layout_margin="10dp"
+                    android:layout_margin="5dp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:id="@+id/level"
-                    android:textSize="30dp"
+                    android:textSize="20dp"
+                    android:text="Level  0"
                     android:gravity="center"
+                    android:fontFamily="@font/harbinger"
                     />
                 <TextView
-                    android:layout_margin="10dp"
+                    android:layout_margin="5dp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:id="@+id/score"
-                    android:textSize="30dp"
+                    android:textSize="20dp"
+                    android:text="Score  0"
                     android:gravity="center"
+                    android:fontFamily="@font/harbinger"
                     />
             </LinearLayout>
         </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:layout_centerInParent="true"
+            android:background="@color/black"/>
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="400dp"
+            android:layout_height="300dp"
             android:orientation="vertical"
+            android:padding="20dp"
             >
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="25dp"
                 android:text="My Treasures"
                 android:gravity="center_horizontal"
                 android:autoSizeTextType="uniform"
+                android:fontFamily="@font/harbinger"
                 />
             <ListView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/listview"/>
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:layout_centerInParent="true"
+            android:background="@color/black"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:orientation="vertical"
+            android:padding="20dp"
+            >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="25dp"
+                android:text="Ranking"
+                android:gravity="center_horizontal"
+                android:autoSizeTextType="uniform"
+                android:fontFamily="@font/harbinger"
+                />
+            <ListView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/rankinglistView"/>
         </LinearLayout>
     </LinearLayout>
 

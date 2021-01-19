@@ -3,6 +3,7 @@ package com.treasurehunt.madcamp_week3;
 import android.location.Location;
 
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 
 import org.json.JSONArray;
 
@@ -24,8 +25,12 @@ public interface ApiService {
     @POST("/treasure/hunt/")
     Call<String> hunt(@Body DeviceLocation deviceLocation);
 
+//    @FormUrlEncoded
     @GET("/users/score/")
-    Call<JsonArray> score(@Query("uid") String uid);
+    Call<Score> score(@Query("uid") String uid);
+
+    @GET("/treasure/my")
+    Call<JsonArray> myTreasure(@Query("uid") String uid);
 
 //    Call<NotiKey> getNotiKey(@Body NotiRequest notiRequest);
     //
